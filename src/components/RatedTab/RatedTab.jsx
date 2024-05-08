@@ -20,7 +20,7 @@ export default class RatedTab extends React.Component {
           <MovieCard
             id={movie.id}
             title={movie.title}
-            date={movie.release_date}
+            date={movie.realease_date}
             descriptions={movie.overview}
             rate={movie.vote_average}
             posterUrl={movie.poster_path}
