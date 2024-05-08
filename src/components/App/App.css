@@ -1,0 +1,93 @@
+.app {
+  max-height: 1147px;
+  background-color: #FFFFFF;
+}
+
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  list-style: none;
+  padding: 0;
+  max-width: 938px;
+  margin: 0 auto;
+}
+
+.movie-list li {
+  flex: 0 0 calc(50% - 5px);
+  margin: 2.5px;
+}
+
+.spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.error {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  font-size: 18px;
+  border-radius: 10px;
+}
+
+.notFound {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  font-size: 18px;
+  border-radius: 10px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 10px;
+}
+
+.input {
+  position: relative;
+  width: 948px;
+  margin: 0 auto;
+  height: 40px;
+  box-sizing: border-box;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFFFFF;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .movie-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    max-width: 100%;
+    margin: auto; 
+  }
+
+  .input {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto; 
+    height: 40px;
+    box-sizing: border-box;
+  }
+}
+
+

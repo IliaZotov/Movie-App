@@ -1,0 +1,83 @@
+.movie-card {
+  width: 451px;
+  height: 279px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.260);
+  margin: auto;
+  margin-top: 30px;
+  overflow: hidden;
+  border-radius: 5px;
+  gap: 0 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 0.3fr 0.3fr 1fr;
+  grid-template-areas:
+    "card-poster card-title card-title"
+    "card-poster card-info card-info"
+    "card-poster card-description card-description";
+}
+
+.card-title {
+  grid-area: card-title;
+  display: flex;
+  justify-content: space-between;
+  margin-top: -15px;
+}
+
+.progress {
+  padding-top: 30px;
+  padding-right: 15px;
+}
+
+.card-poster {
+  grid-area: card-poster;
+  width: 183px;
+  height: 281px;
+  overflow: hidden;
+}
+
+.notFoundIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  object-fit: cover;
+  font-size: 100px;
+  width: 183px;
+  height: 281px;
+}
+
+.card-poster img {
+  object-fit: cover;
+  width: 100%;
+  min-height: 100%;
+}
+
+.card-info {
+  grid-area: card-info;
+}
+
+.card-date {
+  margin-bottom: 5px;
+}
+
+.card-description {
+  grid-area: card-description;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 280px;
+  margin: auto;
+}
+
+.card-text {
+  font-size: 12px;
+}
+
+.card-rate {
+  font-size: 15px;
+  margin: 20px 0;
+}
+
+.card-tags {
+  padding-right: 3px;
+  margin-bottom: 5px;
+}

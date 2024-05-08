@@ -1,0 +1,47 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "plugins": ["prettier", "react", "@stylistic/js"],
+  "extends": ["airbnb-base"],
+  "rules": {
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "no-plusplus": "off",
+    "linebreak-style": [0, "unix"],
+    "quotes": [2, "single", { "avoidEscape": true }],
+    "semi": ["error", "always"],
+    "arrow-body-style": 0,
+    "object-curly-newline": ["error", { "multiline": true }],
+    "padded-blocks": ["error", { "blocks": "never" }],
+    "no-unused-vars": "off",
+    "no-nested-ternary": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "default-case": ["error", { "commentPattern": "^skip\\sdefault" }],
+    "class-methods-use-this": "off",
+    "object-shorthand": "off",
+    "no-param-reassign": "off",
+    "no-console": "off",
+    "operator-linebreak": "off",
+    "lines-between-class-members": "off",
+    "no-useless-concat": "off"
+  },
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaFeatures": { "jsx": true },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "settings": {
+    "version": "detect",
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
+  }
+}
