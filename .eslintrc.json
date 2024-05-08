@@ -10,7 +10,7 @@
     "indent": ["error", 2, { "SwitchCase": 1 }],
     "no-plusplus": "off",
     "linebreak-style": [0, "unix"],
-    "quotes": [2, "single", { "avoidEscape": true }],
+    "quotes": ["error", "single", { "avoidEscape": true }],
     "semi": ["error", "always"],
     "arrow-body-style": 0,
     "object-curly-newline": ["error", { "multiline": true }],
@@ -28,6 +28,7 @@
     "operator-linebreak": "off",
     "lines-between-class-members": "off",
     "no-useless-concat": "off"
+
   },
   "parser": "@babel/eslint-parser",
   "parserOptions": {
