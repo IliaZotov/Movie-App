@@ -27,8 +27,9 @@
     "no-console": "off",
     "operator-linebreak": "off",
     "lines-between-class-members": "off",
-    "no-useless-concat": "off"
-
+    "no-useless-concat": "off",
+    "function-paren-newline": "off",
+    "implicit-arrow-linebreak": "off"
   },
   "parser": "@babel/eslint-parser",
   "parserOptions": {
