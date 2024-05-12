@@ -1,14 +1,14 @@
 export default class MovieService {
-  apiBase = "https://api.themoviedb.org/3/";
+  apiBase = 'https://api.themoviedb.org/3/';
 
-  apiKey = "879fcae5e824f1660bab83d224acc1f4";
+  apiKey = '879fcae5e824f1660bab83d224acc1f4';
 
   options = {
-    method: "GET",
+    method: 'GET',
     headers: {
-      accept: "application/json",
+      accept: 'application/json',
       Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzlmY2FlNWU4MjRmMTY2MGJhYjgzZDIyNGFjYzFmNCIsInN1YiI6IjY2MjE1Mjk3N2EzYzUyMDE3ZDRjYTUwNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nkHR1bQ_oZHkbLmza0_zhohRFgopf9dUu26frNvxYuM",
+        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzlmY2FlNWU4MjRmMTY2MGJhYjgzZDIyNGFjYzFmNCIsInN1YiI6IjY2MjE1Mjk3N2EzYzUyMDE3ZDRjYTUwNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nkHR1bQ_oZHkbLmza0_zhohRFgopf9dUu26frNvxYuM',
     },
   };
   async getResource(url) {
@@ -29,7 +29,7 @@ export default class MovieService {
   }
 
   async getGenresList() {
-    const url = "genre/movie/list";
+    const url = 'genre/movie/list';
     const res = await this.getResource(url);
     return res;
   }
@@ -40,13 +40,20 @@ export default class MovieService {
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error('Network response was not ok');
       }
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error('Error fetching data:', error);
       return null;
     }
   };
+
+  async createGuestSession() {
+    const url = `authentication/guest_session/new?api_key=${this.apiKey}`;
+    const res = await this.getResource(url);
+    console.log('Гостевая сессия создана', res);
+    return res;
+  }
 }

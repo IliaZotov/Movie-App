@@ -1,13 +1,21 @@
-import React from "react";
-import { Spin, Pagination, Alert } from "antd";
-import MovieCard from "../MovieCard/MovieCard";
-import ErrorComponent from "../ErrorComponent/ErrorComponent";
+import React from 'react';
+import { Spin, Pagination, Alert } from 'antd';
+import MovieCard from '../MovieCard/MovieCard';
+import ErrorComponent from '../ErrorComponent/ErrorComponent';
 
 export default class RatedTab extends React.Component {
+  getRatedMovies = () => {
+    const ratedMovies = JSON.parse(localStorage.getItem('ratedMovies')) || {};
+
+    const ratedMoviesArray = Object.keys(ratedMovies).map(
+      (movieId) => ratedMovies[movieId],
+    );
+    this.setState({ ratedMovies: ratedMoviesArray });
+  };
+
   componentDidMount() {
-    const { getRatedMovies } = this.props;
-    getRatedMovies();
-    const ratedMoviesString = localStorage.getItem("ratedMovies");
+    this.getRatedMovies();
+    const ratedMoviesString = localStorage.getItem('ratedMovies');
     const ratedMovies = JSON.parse(ratedMoviesString);
   }
 
@@ -20,7 +28,7 @@ export default class RatedTab extends React.Component {
           <MovieCard
             id={movie.id}
             title={movie.title}
-            date={movie.realease_date}
+            date={movie.release_date}
             descriptions={movie.overview}
             rate={movie.vote_average}
             posterUrl={movie.poster_path}
@@ -41,18 +49,18 @@ export default class RatedTab extends React.Component {
       this.props;
     const movieList = (
       <>
-        <ul className="movie-list">{this.renderMovieCard()}</ul>
+        <ul className='movie-list'>{this.renderMovieCard()}</ul>
       </>
     );
 
     const spinner = isLoading ? (
-      <Spin size="large" className="spinner" />
+      <Spin size='large' className='spinner' />
     ) : null;
 
     const pagination =
       movieRatingData.size !== 0 ? (
         <Pagination
-          className="pagination"
+          className='pagination'
           total={1}
           showSizeChanger={false}
           showQuickJumper={false}
@@ -65,10 +73,10 @@ export default class RatedTab extends React.Component {
       movieRatingData.size === 0 ? (
         <>
           <Alert
-            type="warning"
-            message="Nothing found..."
+            type='warning'
+            message='Nothing found...'
             banner
-            className="notFound"
+            className='notFound'
           />
         </>
       ) : null;

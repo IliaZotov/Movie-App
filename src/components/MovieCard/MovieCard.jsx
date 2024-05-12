@@ -1,25 +1,25 @@
-import React from "react";
-import "./MovieCard.css";
-import { format } from "date-fns";
-import { enGB } from "date-fns/locale";
-import { Tag, Typography, Rate, Progress } from "antd";
-import { FrownOutlined } from "@ant-design/icons";
-import { GenresConsumer } from "../GenresContext/GenresContext";
+import React from 'react';
+import './MovieCard.css';
+import { format } from 'date-fns';
+import { enGB } from 'date-fns/locale';
+import { Tag, Typography, Rate, Progress } from 'antd';
+import { FrownOutlined } from '@ant-design/icons';
+import { GenresConsumer } from '../GenresContext/GenresContext';
 
 const { Title, Text } = Typography;
 
 export default class MovieCard extends React.Component {
   rateColor(value) {
-    let color = "";
+    let color = '';
 
     if (value < 3) {
-      color = "#E90000";
+      color = '#E90000';
     } else if (value >= 3 && value < 5) {
-      color = "#E97E00";
+      color = '#E97E00';
     } else if (value >= 5 && value <= 7) {
-      color = "#E9D100";
+      color = '#E9D100';
     } else if (value > 7) {
-      color = "#66E900";
+      color = '#66E900';
     }
     return color;
   }
@@ -29,7 +29,7 @@ export default class MovieCard extends React.Component {
       ids.some((id) => id === genre.id),
     );
     return matchedGenres.map((genre) => (
-      <Tag key={genre.id} className="card-tags">
+      <Tag key={genre.id} className='card-tags'>
         {genre.name}
       </Tag>
     ));
@@ -49,11 +49,11 @@ export default class MovieCard extends React.Component {
     } = this.props;
 
     const img = !posterUrl ? (
-      <FrownOutlined className="notFoundIcon" />
+      <FrownOutlined className='notFoundIcon' />
     ) : (
       <img
         src={`https://image.tmdb.org/t/p/original${posterUrl}`}
-        alt="Movie Title Img"
+        alt='Movie Title Img'
       />
     );
 
@@ -63,13 +63,13 @@ export default class MovieCard extends React.Component {
         : descriptions;
 
     return (
-      <div className="movie-card">
-        <div className="card-poster">{img}</div>
-        <div className="card-title">
+      <div className='movie-card'>
+        <div className='card-poster'>{img}</div>
+        <div className='card-title'>
           <Title level={5}>{title}</Title>
           <Progress
-            className="progress"
-            type="circle"
+            className='progress'
+            type='circle'
             size={40}
             steps={1}
             trailColor={this.rateColor(rate)}
@@ -77,20 +77,20 @@ export default class MovieCard extends React.Component {
             percent={rate.toFixed(1)}
           ></Progress>
         </div>
-        <div className="card-info">
-          <div className="card-date">
+        <div className='card-info'>
+          <div className='card-date'>
             {date
-              ? format(new Date(date), "MMMM dd, yyyy", { locale: enGB })
-              : "Date unknown"}
+              ? format(new Date(date), 'MMMM dd, yyyy', { locale: enGB })
+              : 'Date unknown'}
           </div>
           <GenresConsumer>
             {(value) => this.genresMatching(value, genresIds)}
           </GenresConsumer>
         </div>
-        <div className="card-description">
-          <Text className="card-text">{descriptionText}</Text>
+        <div className='card-description'>
+          <Text className='card-text'>{descriptionText}</Text>
           <Rate
-            className="card-rate"
+            className='card-rate'
             count={10}
             allowHalf
             onChange={(value) => rateMovie(id, value)}

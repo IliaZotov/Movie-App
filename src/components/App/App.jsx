@@ -1,15 +1,15 @@
-import React from "react";
-import { Layout, Tabs } from "antd";
-import { debounce } from "lodash";
-import MovieService from "../../API/API";
-import SearchTab from "../SearchTab/SearchTab";
-import { GenresProvider } from "../GenresContext/GenresContext";
-import "./App.css";
-import RatedTab from "../RatedTab/RatedTab";
+import React from 'react';
+import { Layout, Tabs } from 'antd';
+import { debounce } from 'lodash';
+import MovieService from '../../API/API';
+import SearchTab from '../SearchTab/SearchTab';
+import { GenresProvider } from '../GenresContext/GenresContext';
+import './App.css';
+import RatedTab from '../RatedTab/RatedTab';
 
 export default class App extends React.Component {
   state = {
-    query: "",
+    query: '',
     movies: [],
     genresList: [],
     currentPage: null,
@@ -17,7 +17,7 @@ export default class App extends React.Component {
     totalResults: null,
     isLoading: false,
     isError: false,
-    guestSessionId: "",
+    guestSessionId: '',
     ratedMovies: [],
   };
 
@@ -26,12 +26,13 @@ export default class App extends React.Component {
   movieRatingData = new Map();
 
   componentDidMount() {
+    this.createGuestSession();
     this.getGenres();
-    window.addEventListener("beforeunload", this.clearLocalStorage);
+    window.addEventListener('beforeunload', this.clearLocalStorage);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("beforeunload", this.clearLocalStorage);
+    window.removeEventListener('beforeunload', this.clearLocalStorage);
   }
 
   clearLocalStorage = () => {
@@ -42,40 +43,10 @@ export default class App extends React.Component {
     this.movieService
       .createGuestSession()
       .then((guestSession) => {
+        localStorage.setItem('guestSessionId', guestSession.guest_session_id);
         this.setState({ guestSessionId: guestSession.guest_session_id });
       })
-      .catch((err) => console.log("Ошибка при создании гостевой сессии:", err));
-  }
-
-  searchMovie(query = "") {
-    if (!query.trim()) {
-      this.setState({
-        movies: [],
-        currentPage: null,
-        totalPages: null,
-        totalResults: null,
-        isLoading: false,
-        isError: false,
-      });
-      return;
-    }
-    this.movieService
-      .getMovie(query)
-      .then((foundMovie) => {
-        this.setState({
-          movies: foundMovie.results,
-          currentPage: foundMovie.page,
-          totalPages: foundMovie.total_pages,
-          totalResults: foundMovie.total_results,
-          isLoading: false,
-          isError: false,
-          query: query,
-        });
-      })
-      .catch((err) => {
-        console.log("Ошибка при поиске фильма:", err);
-        this.setState({ isError: true, isLoading: false });
-      });
+      .catch((err) => console.log('Ошибка при создании гостевой сессии:', err));
   }
 
   onPageChange = (query, page) => {
@@ -97,7 +68,7 @@ export default class App extends React.Component {
           return updateState;
         });
       })
-      .catch((err) => console.log("Ошибка при загрузке страницы:", err));
+      .catch((err) => console.log('Ошибка при загрузке страницы:', err));
   };
 
   getGenres() {
@@ -106,18 +77,8 @@ export default class App extends React.Component {
       .then((genres) => {
         this.setState({ genresList: genres.genres });
       })
-      .catch((err) => console.log("Ошибка при загрузке жанров:", err));
+      .catch((err) => console.log('Ошибка при загрузке жанров:', err));
   }
-
-  inputChange = debounce((event) => {
-    const query = event.target.value.trim();
-    if (query) {
-      this.setState({ isLoading: true, isError: false });
-    } else {
-      this.setState({ isLoading: false, isError: false });
-    }
-    this.searchMovie(query);
-  }, 500);
 
   rateMovie = (movieId, value) => {
     this.movieService
@@ -125,26 +86,17 @@ export default class App extends React.Component {
       .then((movieData) => {
         movieData.rating = value;
         const ratedMovies =
-          JSON.parse(localStorage.getItem("ratedMovies")) || {};
+          JSON.parse(localStorage.getItem('ratedMovies')) || {};
         ratedMovies[movieId] = movieData;
-        localStorage.setItem("ratedMovies", JSON.stringify(ratedMovies));
+        localStorage.setItem('ratedMovies', JSON.stringify(ratedMovies));
 
         this.setState({ ratedMovies });
 
         this.movieRatingData.set(movieId, value);
       })
       .catch((error) => {
-        console.error("Ошибка при получении данных о фильме:", error);
+        console.error('Ошибка при получении данных о фильме:', error);
       });
-  };
-
-  getRatedMovies = () => {
-    const ratedMovies = JSON.parse(localStorage.getItem("ratedMovies")) || {};
-
-    const ratedMoviesArray = Object.keys(ratedMovies).map(
-      (movieId) => ratedMovies[movieId],
-    );
-    this.setState({ ratedMovies: ratedMoviesArray });
   };
 
   render() {
@@ -162,8 +114,8 @@ export default class App extends React.Component {
 
     const tabsItems = [
       {
-        key: "1",
-        label: "Search",
+        key: '1',
+        label: 'Search',
         children: (
           <SearchTab
             movies={movies}
@@ -171,17 +123,17 @@ export default class App extends React.Component {
             isError={isError}
             totalResults={totalResults}
             totalPages={totalPages}
-            rateMovie={this.rateMovie}
             guestSessionId={guestSessionId}
-            inputChange={this.inputChange}
-            onPageChange={this.onPageChange}
             query={query}
+            onPageChange={this.onPageChange}
+            searchMovie={this.searchMovie}
+            rateMovie={this.rateMovie}
           />
         ),
       },
       {
-        key: "2",
-        label: "Rated",
+        key: '2',
+        label: 'Rated',
         children: (
           <RatedTab
             movies={movies}
@@ -193,7 +145,6 @@ export default class App extends React.Component {
             movieRatingData={this.movieRatingData}
             rateMovie={this.rateMovie}
             guestSessionId={guestSessionId}
-            getRatedMovies={this.getRatedMovies}
             onPageChange={this.onPageChange}
           />
         ),
@@ -201,9 +152,9 @@ export default class App extends React.Component {
     ];
 
     return (
-      <Layout className="app">
+      <Layout className='app'>
         <GenresProvider value={genresList}>
-          <Tabs className="tabs" items={tabsItems} />
+          <Tabs className='tabs' items={tabsItems} />
         </GenresProvider>
       </Layout>
     );
